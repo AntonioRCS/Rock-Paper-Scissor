@@ -1,1 +1,2 @@
-"# Rock-Paper-Scissor" 
+# Rock Paper Scissor
+A simple game of Rock Paper Scissor in JavaScript
