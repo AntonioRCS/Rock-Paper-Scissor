@@ -1,91 +1,88 @@
-const paperBtn = document.getElementById('paper-btn');
-const rockBtn = document.getElementById('rock-btn');
-const scissorBtn = document.getElementById('scissor-btn');
-const resetBtn = document.getElementById('reset-btn');
+const botaoPapel = document.getElementById('botao-papel');
+const botaoPedra = document.getElementById('botao-pedra');
+const botaoTesoura = document.getElementById('botao-tesoura');
+const botaoReset = document.getElementById('botao-reset');
 
-const menu = document.getElementById("computer-menu");
-const playerText = document.getElementById('player-text');
-const computerText = document.getElementById('computer-text');
+const menuComputador = document.getElementById('menu-computador');
+const textoJogador = document.getElementById('texto-jogador');
+const textoComputador = document.getElementById('texto-computador');
 
-const finalResultSection = document.getElementById("final-result");
-const winnerText = document.getElementById('winner-text');
+const secaoResultadoFinal = document.getElementById('resultado-final');
+const textoVencedor = document.getElementById('texto-vencedor');
 
-let finalResult;
+let resultadoFinal;
 
-const winner = (playerChoice, computerChoice) => {
-    if (playerChoice === computerChoice) return "É um Empate!";
-    else if ((playerChoice === 0 || playerChoice === 2) && (computerChoice === 0 || computerChoice === 2)) {
-        if (playerChoice > computerChoice) return "Você Perdeu!";
-        else return "Você Ganhou!";
-    } else if (playerChoice > computerChoice) return "Você Ganhou!";
-    else return "Você Ganhou!";
-}
+const vencedor = (escolhaJogador, escolhaComputador) => {
+    if (escolhaJogador === escolhaComputador) return 'É um Empate!';
+    else if ((escolhaJogador === 0 || escolhaJogador === 2) && (escolhaComputador === 0 || escolhaComputador === 2)) {
+        if (escolhaJogador > escolhaComputador) return 'Você Perdeu!';
+        else return 'Você Ganhou!';
+    } else if (escolhaJogador > escolhaComputador) return 'Você Ganhou!';
+    else return 'Você Perdeu!';
+};
 
-const changeText = (playerChoice, computerChoice, event) => {
-    playerText.innerHTML = `<h3>Jogador Escolheu: ${playerChoice}</h3>`;
+const mudarTexto = (escolhaJogador, escolhaComputador) => {
+    textoJogador.innerHTML = `<h3>Jogador Escolheu: ${escolhaJogador}</h3>`;
 
-    switch (computerChoice) {
+    switch (escolhaComputador) {
         case 0:
-            computerText.innerHTML = '<h3>Computador Escolheu: PAPEL</h3>';
-            menu.style.visibility = 'visible';
+            textoComputador.innerHTML = '<h3>Computador Escolheu: PAPEL</h3>';
+            menuComputador.style.visibility = 'visible';
             break;
         case 1:
-            computerText.innerHTML = '<h3>Computador Escolheu: TESOURA</h3>';
-            menu.style.visibility = 'visible';
+            textoComputador.innerHTML = '<h3>Computador Escolheu: TESOURA</h3>';
+            menuComputador.style.visibility = 'visible';
             break;
         case 2:
-            computerText.innerHTML = '<h3>Computador Escolheu: PEDRA</h3>';
-            menu.style.visibility = 'visible';
+            textoComputador.innerHTML = '<h3>Computador Escolheu: PEDRA</h3>';
+            menuComputador.style.visibility = 'visible';
             break;
     }
+};
 
-}
-
-const textToNumber = (text) => {
-    switch (text) {
+const textoParaNumero = (texto) => {
+    switch (texto) {
         case 'PAPEL': return 0;
         case 'TESOURA': return 1;
         case 'PEDRA': return 2;
         default: return 3;
     }
-}
+};
 
-const disableEnableButtons = (action) => {
-    if(action === 'enabled') {
-        paperBtn.removeAttribute("disabled");
-        scissorBtn.removeAttribute("disabled");
-        rockBtn.removeAttribute("disabled");
+const alternarBotoes = (acao) => {
+    if (acao === 'enabled') {
+        botaoPapel.removeAttribute('disabled');
+        botaoTesoura.removeAttribute('disabled');
+        botaoPedra.removeAttribute('disabled');
     } else {
-        paperBtn.setAttribute(action, true);
-        scissorBtn.setAttribute(action, true);
-        rockBtn.setAttribute(action, true);
+        botaoPapel.setAttribute(acao, true);
+        botaoTesoura.setAttribute(acao, true);
+        botaoPedra.setAttribute(acao, true);
     }
-    
-}
+};
 
-const gameCalc = (event) => {
-    let playerChoice = event.target.innerHTML;
-    const computerChoice = Math.floor(Math.random() * 3);
+const calcularJogo = (evento) => {
+    let escolhaJogador = evento.target.innerHTML.toUpperCase();
+    const escolhaComputador = Math.floor(Math.random() * 3);
 
-    changeText(playerChoice, computerChoice, event);
-    playerChoice = textToNumber(playerChoice);
+    mudarTexto(escolhaJogador, escolhaComputador);
+    escolhaJogador = textoParaNumero(escolhaJogador);
 
-    disableEnableButtons("disabled");
-    finalResult = winner(playerChoice, computerChoice);
+    alternarBotoes('disabled');
+    console.log(escolhaJogador, escolhaComputador);
+    resultadoFinal = vencedor(escolhaJogador, escolhaComputador);
+    console.log(resultadoFinal);
+    textoVencedor.innerHTML = `<h2>${resultadoFinal}</h2>`;
+    secaoResultadoFinal.style.visibility = 'visible';
+};
 
-    winnerText.innerHTML = `<h2>${finalResult}</h2>`;
-    finalResultSection.style.visibility = 'visible';
+const reiniciarJogo = () => {
+    secaoResultadoFinal.style.visibility = 'hidden';
+    menuComputador.style.visibility = 'hidden';
+    alternarBotoes('enabled');
+};
 
-    console.log(finalResult);
-}
-
-const resetGame = (event) => {
-    finalResultSection.style.visibility = 'hidden';
-    menu.style.visibility = 'hidden';
-    disableEnableButtons("enabled");
-}
-
-paperBtn.addEventListener('click', gameCalc);
-scissorBtn.addEventListener('click', gameCalc);
-rockBtn.addEventListener('click', gameCalc);
-resetBtn.addEventListener('click', resetGame);
+botaoPapel.addEventListener('click', calcularJogo);
+botaoTesoura.addEventListener('click', calcularJogo);
+botaoPedra.addEventListener('click', calcularJogo);
+botaoReset.addEventListener('click', reiniciarJogo);

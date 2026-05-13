@@ -33,9 +33,9 @@ button:disabled {
     cursor: initial;
 }
 
-#final-result,
-#player-menu,
-#computer-menu {
+#resultado-final,
+#menu-jogador,
+#menu-computador {
     border-radius: 10px;
     padding: 1rem;
     width: 30rem;
@@ -44,7 +44,7 @@ button:disabled {
     margin: 3rem auto;
 }
 
-#final-result,
-#computer-menu {
+#resultado-final,
+#menu-computador {
     visibility: hidden;
 }
