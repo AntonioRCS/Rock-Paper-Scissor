@@ -13,28 +13,28 @@ const winnerText = document.getElementById('winner-text');
 let finalResult;
 
 const winner = (playerChoice, computerChoice) => {
-    if (playerChoice === computerChoice) return "It's A Draw!";
+    if (playerChoice === computerChoice) return "É um Empate!";
     else if ((playerChoice === 0 || playerChoice === 2) && (computerChoice === 0 || computerChoice === 2)) {
-        if (playerChoice > computerChoice) return "You Lose!";
-        else return "You Win!";
-    } else if (playerChoice > computerChoice) return "You Win!";
-    else return "You Lose!";
+        if (playerChoice > computerChoice) return "Você Perdeu!";
+        else return "Você Ganhou!";
+    } else if (playerChoice > computerChoice) return "Você Ganhou!";
+    else return "Você Ganhou!";
 }
 
 const changeText = (playerChoice, computerChoice, event) => {
-    playerText.innerHTML = `<h3>Player Choice was ${playerChoice}</h3>`;
+    playerText.innerHTML = `<h3>Jogador Escolheu: ${playerChoice}</h3>`;
 
     switch (computerChoice) {
         case 0:
-            computerText.innerHTML = '<h3>Computer Choice was PAPER</h3>';
+            computerText.innerHTML = '<h3>Computador Escolheu: PAPEL</h3>';
             menu.style.visibility = 'visible';
             break;
         case 1:
-            computerText.innerHTML = '<h3>Computer Choice was SCISSOR</h3>';
+            computerText.innerHTML = '<h3>Computador Escolheu: TESOURA</h3>';
             menu.style.visibility = 'visible';
             break;
         case 2:
-            computerText.innerHTML = '<h3>Computer Choice was ROCK</h3>';
+            computerText.innerHTML = '<h3>Computador Escolheu: PEDRA</h3>';
             menu.style.visibility = 'visible';
             break;
     }
@@ -43,9 +43,9 @@ const changeText = (playerChoice, computerChoice, event) => {
 
 const textToNumber = (text) => {
     switch (text) {
-        case 'PAPER': return 0;
-        case 'SCISSOR': return 1;
-        case 'ROCK': return 2;
+        case 'PAPEL': return 0;
+        case 'TESOURA': return 1;
+        case 'PEDRA': return 2;
         default: return 3;
     }
 }
